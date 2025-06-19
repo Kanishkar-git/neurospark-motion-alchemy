@@ -151,13 +151,13 @@
     @apply bg-white/10 backdrop-blur-md border border-white/20 dark:bg-white/10 dark:border-white/20;
   }
 
-  /* Light mode overrides */
+  /* Theme-aware background classes */
   .bg-neuro-dark {
-    @apply bg-[hsl(var(--neuro-dark))] dark:bg-[hsl(222,84%,5%)];
+    @apply bg-white text-gray-900 dark:bg-[hsl(222,84%,5%)] dark:text-white;
   }
 
   .bg-neuro-gray {
-    @apply bg-[hsl(var(--neuro-gray))] dark:bg-[hsl(217,33%,18%)];
+    @apply bg-gray-100 dark:bg-[hsl(217,33%,18%)];
   }
 
   .text-neuro-blue {
@@ -191,7 +191,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-neuro-dark;
+  @apply bg-gray-100 dark:bg-neuro-dark;
 }
 
 ::-webkit-scrollbar-thumb {

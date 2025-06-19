@@ -21,13 +21,24 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    // Check localStorage first, then system preference, default to dark
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
 
   useEffect(() => {
-    // Apply theme to document
+    // Apply theme to document and save to localStorage
+    localStorage.setItem('theme', theme);
+    
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
     } else {
+      document.documentElement.classList.add('light');
       document.documentElement.classList.remove('dark');
     }
   }, [theme]);

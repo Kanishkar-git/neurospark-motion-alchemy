@@ -25,7 +25,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neuro-dark text-white overflow-x-hidden">
+    <div className="min-h-screen bg-neuro-dark overflow-x-hidden transition-colors duration-300">
       <Navigation theme={theme} onToggleTheme={toggleTheme} />
       
       <main>
