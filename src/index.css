@@ -1,8 +1,9 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* NeuroSpark Design System */
 
 @layer base {
   :root {
@@ -37,19 +38,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -94,10 +88,74 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-inter;
   }
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .neuro-card {
+    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/20 rounded-xl;
+  }
+
+  .neuro-button {
+    @apply bg-gradient-to-r from-neuro-blue to-neuro-purple text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105;
+  }
+
+  .neuro-text-gradient {
+    @apply bg-gradient-to-r from-neuro-blue to-neuro-purple bg-clip-text text-transparent;
+  }
+
+  .ripple-effect {
+    @apply relative overflow-hidden;
+  }
+
+  .ripple-effect::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-radial from-neuro-blue/30 to-transparent scale-0 rounded-full transition-transform duration-600 ease-out;
+  }
+
+  .ripple-effect:hover::before {
+    @apply scale-100;
+  }
+
+  .parallax-bg {
+    @apply fixed inset-0 bg-neuro-gradient;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .glass-morphism {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-neuro-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neuro-blue rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-neuro-purple;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
