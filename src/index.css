@@ -120,7 +120,7 @@
 
   .ripple-effect::before {
     content: '';
-    @apply absolute inset-0 bg-gradient-radial from-neuro-blue/30 to-transparent scale-0 rounded-full transition-transform duration-600 ease-out;
+    @apply absolute inset-0 bg-gradient-radial from-neuro-blue/30 to-transparent scale-0 rounded-full transition-transform duration-500 ease-out;
   }
 
   .ripple-effect:hover::before {
