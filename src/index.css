@@ -45,6 +45,13 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* NeuroSpark light theme variables */
+    --neuro-dark: 240 10% 95%;
+    --neuro-gray: 240 5% 90%;
+    --neuro-blue: 217 91% 60%;
+    --neuro-purple: 262 83% 58%;
+    --neuro-electric: 175 100% 47%;
   }
 
   .dark {
@@ -83,6 +90,13 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* NeuroSpark dark theme variables */
+    --neuro-dark: 222 84% 5%;
+    --neuro-gray: 217 33% 18%;
+    --neuro-blue: 217 91% 60%;
+    --neuro-purple: 262 83% 58%;
+    --neuro-electric: 175 100% 47%;
   }
 }
 
@@ -92,7 +106,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -103,7 +117,7 @@
 
 @layer components {
   .neuro-card {
-    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/20 rounded-xl;
+    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/20 rounded-xl dark:from-white/10 dark:to-white/5 dark:border-white/20;
   }
 
   .neuro-button {
@@ -134,7 +148,40 @@
   }
 
   .glass-morphism {
-    @apply bg-white/10 backdrop-blur-md border border-white/20;
+    @apply bg-white/10 backdrop-blur-md border border-white/20 dark:bg-white/10 dark:border-white/20;
+  }
+
+  /* Light mode overrides */
+  .bg-neuro-dark {
+    @apply bg-[hsl(var(--neuro-dark))] dark:bg-[hsl(222,84%,5%)];
+  }
+
+  .bg-neuro-gray {
+    @apply bg-[hsl(var(--neuro-gray))] dark:bg-[hsl(217,33%,18%)];
+  }
+
+  .text-neuro-blue {
+    @apply text-[hsl(var(--neuro-blue))];
+  }
+
+  .text-neuro-purple {
+    @apply text-[hsl(var(--neuro-purple))];
+  }
+
+  .text-neuro-electric {
+    @apply text-[hsl(var(--neuro-electric))];
+  }
+
+  .bg-neuro-blue {
+    @apply bg-[hsl(var(--neuro-blue))];
+  }
+
+  .bg-neuro-purple {
+    @apply bg-[hsl(var(--neuro-purple))];
+  }
+
+  .bg-neuro-electric {
+    @apply bg-[hsl(var(--neuro-electric))];
   }
 }
 

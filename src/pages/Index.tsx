@@ -1,7 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 import Preloader from '../components/Preloader';
-import ThemeToggle from '../components/ThemeToggle';
+import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
 import AnimatedStats from '../components/AnimatedStats';
@@ -13,23 +14,10 @@ import Footer from '../components/Footer';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-
-  useEffect(() => {
-    // Apply theme to document
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [theme]);
+  const { theme, toggleTheme } = useTheme();
 
   const handlePreloaderComplete = () => {
     setIsLoading(false);
-  };
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
   if (isLoading) {
@@ -38,7 +26,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-neuro-dark text-white overflow-x-hidden">
-      <ThemeToggle theme={theme} onToggle={toggleTheme} />
+      <Navigation theme={theme} onToggleTheme={toggleTheme} />
       
       <main>
         <Hero />
