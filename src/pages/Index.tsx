@@ -7,6 +7,8 @@ import Services from '../components/Services';
 import AnimatedStats from '../components/AnimatedStats';
 import Testimonials from '../components/Testimonials';
 import Portfolio from '../components/Portfolio';
+import BrandKits from '../components/BrandKits';
+import StrikingObject from '../components/StrikingObject';
 import Footer from '../components/Footer';
 
 const Index = () => {
@@ -42,6 +44,8 @@ const Index = () => {
         <Hero />
         <Services />
         <AnimatedStats />
+        <BrandKits />
+        <StrikingObject />
         <Portfolio />
         <Testimonials />
       </main>

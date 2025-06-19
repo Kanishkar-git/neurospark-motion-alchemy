@@ -1,5 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface Testimonial {
   id: number;
@@ -12,8 +19,6 @@ interface Testimonial {
 }
 
 const Testimonials: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   const testimonials: Testimonial[] = [
     {
       id: 1,
@@ -53,20 +58,6 @@ const Testimonials: React.FC = () => {
     }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  const currentTestimonial = testimonials[currentIndex];
-
   return (
     <section className="py-20 px-6 bg-neuro-dark relative overflow-hidden">
       {/* Background decoration */}
@@ -75,7 +66,7 @@ const Testimonials: React.FC = () => {
         <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-gradient-to-r from-neuro-electric/10 to-neuro-purple/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section header */}
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
@@ -86,61 +77,53 @@ const Testimonials: React.FC = () => {
           </p>
         </div>
 
-        {/* Testimonial card */}
-        <div className="relative">
-          <div className="neuro-card p-8 md:p-12 text-center transform transition-all duration-500">
-            {/* Quote icon */}
-            <div className="text-neuro-blue mb-6">
-              <svg className="w-12 h-12 mx-auto opacity-50" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
-              </svg>
-            </div>
+        {/* Carousel testimonials */}
+        <Carousel className="w-full max-w-4xl mx-auto" opts={{ align: "start", loop: true }}>
+          <CarouselContent>
+            {testimonials.map((testimonial) => (
+              <CarouselItem key={testimonial.id}>
+                <div className="neuro-card p-8 md:p-12 text-center transform transition-all duration-500 ripple-effect">
+                  {/* Quote icon */}
+                  <div className="text-neuro-blue mb-6">
+                    <svg className="w-12 h-12 mx-auto opacity-50" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                    </svg>
+                  </div>
 
-            {/* Testimonial content */}
-            <blockquote className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed font-light">
-              "{currentTestimonial.content}"
-            </blockquote>
+                  {/* Testimonial content */}
+                  <blockquote className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed font-light">
+                    "{testimonial.content}"
+                  </blockquote>
 
-            {/* Rating */}
-            <div className="flex justify-center mb-6">
-              {[...Array(currentTestimonial.rating)].map((_, i) => (
-                <svg key={i} className="w-6 h-6 text-yellow-400 mx-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              ))}
-            </div>
+                  {/* Rating */}
+                  <div className="flex justify-center mb-6">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <svg key={i} className="w-6 h-6 text-yellow-400 mx-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    ))}
+                  </div>
 
-            {/* Author info */}
-            <div className="flex items-center justify-center space-x-4">
-              <img
-                src={currentTestimonial.avatar}
-                alt={currentTestimonial.name}
-                className="w-16 h-16 rounded-full border-2 border-neuro-blue/30"
-              />
-              <div className="text-left">
-                <h4 className="text-white font-semibold text-lg">{currentTestimonial.name}</h4>
-                <p className="text-neuro-blue text-sm">{currentTestimonial.role}</p>
-                <p className="text-white/60 text-sm">{currentTestimonial.company}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation dots */}
-          <div className="flex justify-center space-x-3 mt-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-neuro-blue scale-125'
-                    : 'bg-white/30 hover:bg-white/50'
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+                  {/* Author info */}
+                  <div className="flex items-center justify-center space-x-4">
+                    <img
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      className="w-16 h-16 rounded-full border-2 border-neuro-blue/30"
+                    />
+                    <div className="text-left">
+                      <h4 className="text-white font-semibold text-lg">{testimonial.name}</h4>
+                      <p className="text-neuro-blue text-sm">{testimonial.role}</p>
+                      <p className="text-white/60 text-sm">{testimonial.company}</p>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
             ))}
-          </div>
-        </div>
+          </CarouselContent>
+          <CarouselPrevious className="text-white border-white/20 hover:bg-neuro-blue/20" />
+          <CarouselNext className="text-white border-white/20 hover:bg-neuro-blue/20" />
+        </Carousel>
       </div>
     </section>
   );
